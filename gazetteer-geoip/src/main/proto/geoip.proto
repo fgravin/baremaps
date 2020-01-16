@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package io.gazetteer.geoip;
+option java_package = "io.gazetteer.geoip";
+
+service GeoIPService {
+  rpc GeoIP (GeoIPRequest) returns (GeoIPResponse) {}
+}
+
+message GeoIPRequest {
+
+}
+
+message GeoIPResponse {
+  string country = 1;
+  string countryIsoCode = 2;
+  string subdivision = 3;
+  string subdivisionIsoCode = 4;
+  string city = 5;
+  string postal = 6;
+  double longitude = 7;
+  double latitude = 8;
+}

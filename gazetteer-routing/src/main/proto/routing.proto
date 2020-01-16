@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package io.gazetteer.routing;
+option java_package = "io.gazetteer.routing";
+
+service RoutingService {
+  rpc routing (RoutingRequest) returns (RoutingResponse) {
+  }
+}
+
+message RoutingRequest {
+  double lonFrom = 1;
+  double latFrom = 2;
+  double lonTo = 3;
+  double latTo = 4;
+}
+
+message RoutingResponse {
+  repeated Point points = 1;
+  double distance = 2;
+  double time = 3;
+  repeated Instruction instructions = 4;
+}
+
+message Point {
+  double lon = 1;
+  double lat = 2;
+  double ele = 3;
+}
+
+message Instruction {
+
+}

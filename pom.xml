@@ -37,6 +37,8 @@
     <module>gazetteer-tiles</module>
     <module>gazetteer-benchmarks</module>
     <module>gazetteer-cli</module>
+    <module>gazetteer-geoip</module>
+    <module>gazetteer-routing</module>
   </modules>
 
   <profiles>
@@ -74,7 +76,6 @@
     <version.lib.picocli>4.1.4</version.lib.picocli>
     <version.lib.postgresql>42.2.9</version.lib.postgresql>
     <version.lib.proj4j>1.1.0</version.lib.proj4j>
-    <version.lib.protobuf>3.6.1</version.lib.protobuf>
     <version.lib.selenium>3.141.59</version.lib.selenium>
     <version.lib.slf4j>1.7.25</version.lib.slf4j>
     <version.lib.snakeyaml>1.25</version.lib.snakeyaml>
@@ -289,11 +290,6 @@
         <version>${version.lib.osmosis}</version>
       </dependency>
       <dependency>
-        <artifactId>protobuf-java</artifactId>
-        <groupId>com.google.protobuf</groupId>
-        <version>${version.lib.protobuf}</version>
-      </dependency>
-      <dependency>
         <artifactId>commons-compress</artifactId>
         <groupId>org.apache.commons</groupId>
         <version>${version.lib.commons-compress}</version>
@@ -303,6 +299,7 @@
         <groupId>com.amazonaws</groupId>
         <version>${version.lib.aws-java-sdk-s3}</version>
       </dependency>
+
 
       <!-- Testing libraries -->
       <dependency>
