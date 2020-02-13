@@ -10,14 +10,8 @@
       "tiles": [
         "http://localhost:9000/tiles/{z}/{x}/{y}.pbf"
       ],
-      "minzoom": 12,
+      "minzoom": 0,
       "maxzoom": 14,
-      "bounds": [
-        5.952882,
-        45.81617,
-        10.49584,
-        47.81126
-      ],
       "attribution": "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap contributors</a> © <a href='https://www.mapbox.com/about/maps/'>Mapbox</a>"
     }
   },
@@ -2431,6 +2425,12 @@
       "paint": {
         "line-color": "rgba(121, 112, 101, 1)"
       }
+    },
+    {
+      "id": "ne_countries",
+      "type": "line",
+      "source": "gazetteer",
+      "source-layer": "ne_countries"
     }
   ]
 }

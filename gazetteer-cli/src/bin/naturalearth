@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+readonly DOWNLOAD_DIR=/tmp/naturalearth
+readonly NATURAL_EARTH_DB=/tmp/naturalearth/packages/natural_earth_vector.sqlite
+
+readonly POSTGRES_DB=${POSTGRES_DB:-gazetteer}
+readonly POSTGRES_USER=${POSTGRES_USER:-gazetteer}
+readonly POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-gazetteer}
+
+echo "Downloading Natural Earth"
+wget http://naciscdn.org/naturalearth/packages/natural_earth_vector.sqlite.zip \
+    && unzip -oj natural_earth_vector.sqlite.zip -d "$DOWNLOAD_DIR" \
+    && rm natural_earth_vector.sqlite.zip
+
+echo "Importing Natural Earth"
+PGCLIENTENCODING=LATIN1 ogr2ogr \
+  -progress \
+  -f Postgresql \
+  -s_srs EPSG:4326 \
+  -t_srs EPSG:3857 \
+  -clipsrc -180.1 -85.0511 180.1 85.0511 \
+  PG:"dbname=$POSTGRES_DB user=$POSTGRES_USER password=$POSTGRES_PASSWORD"\
+  -lco GEOMETRY_NAME=geom \
+  -lco DIM=2 \
+  -nlt GEOMETRY \
+  -overwrite \
+  "$NATURAL_EARTH_DB"
+
+echo "Indexing Natural Earth"
+# CREATE INDEX CONCURRENTLY ne_10m_admin_0_countries_gix ON ne_10m_admin_0_countries USING SPGIST (geom);
+# CREATE INDEX CONCURRENTLY ne_10m_admin_0_countries_gix ON ne_10m_admin_0_countries USING SPGIST (geom);
+
+rm -fr $DOWNLOAD_DIR

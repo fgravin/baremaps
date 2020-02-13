@@ -23,12 +23,10 @@ public class BasicTileReader extends AbstractTileReader {
 
     // {0} = name; {1} = sql; {2} = envelope
     private static final String SQL_SOURCE =
-            "(SELECT id, "
+            "SELECT id, "
                     + "(tags || hstore(''geometry'', lower(replace(st_geometrytype(geom), ''ST_'', ''''))))::jsonb, "
                     + "ST_AsMvtGeom(geom, {2}, 4096, 256, true) AS geom "
-                    + "FROM ({1}) AS layer "
-                    + "WHERE ST_Intersects(geom, {2})"
-                    + ") as mvt_geom";
+                    + "FROM ({1}) WHERE ST_Intersects(geom, {2}) AS layer ";
 
     private static final CharSequence SQL_UNION_ALL = " UNION ALL ";
 
@@ -53,6 +51,7 @@ public class BasicTileReader extends AbstractTileReader {
                             layer.getName(),
                             layer.getQueries().stream().map(query -> query.getSql()).collect(Collectors.joining(SQL_UNION_ALL)),
                             envelope(tile));
+                    System.out.println(source);
                     String sql = MessageFormat.format(SQL_LAYERS, value, source);
                     try (Statement statement = connection.createStatement()) {
                         ResultSet result = statement.executeQuery(sql);

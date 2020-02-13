@@ -6,6 +6,7 @@ import io.gazetteer.tiles.TileReader;
 import io.gazetteer.tiles.config.Config;
 import io.gazetteer.tiles.http.ResourceHandler;
 import io.gazetteer.tiles.http.TileHandler;
+import io.gazetteer.tiles.postgis.BasicTileReader;
 import io.gazetteer.tiles.postgis.WithTileReader;
 import java.io.File;
 import java.io.FileInputStream;
